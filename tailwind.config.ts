@@ -20,6 +20,11 @@ const config: Config = {
         //item cards
         "item-cards": "repeat(auto-fill, minmax(200px, 1fr))",
       },
+      boxShadow: {
+        custom: "0 0 14px 5px rgba(255, 255, 255, 0.3)",
+        // custom:
+        //   " rgba(255, 255, 255, 0.2) 0px 0px 15px -3px, rgba(255, 255, 255, 0.1) 0px 0px 6px -2px",
+      },
     },
   },
   plugins: [],
