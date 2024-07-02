@@ -47,8 +47,6 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
     return null;
   }
 
-  // const pokemonNumber = isSuccess ? toString(pokemon["id"]).padStart(4,"0") : "none";
-
   return (
     <div className="bg-white text-black flex flex-col items-center justify-center w-[600px] h-fit m-auto gap-5 pb-5 rounded-lg">
       <div className="flex flex-col justify-center items-center gap-2 bg-slate-200 w-full h-[100px] p-3 rounded-t-lg">
