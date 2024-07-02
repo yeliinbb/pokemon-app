@@ -47,11 +47,13 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
     return null;
   }
 
+  // const pokemonNumber = isSuccess ? toString(pokemon["id"]).padStart(4,"0") : "none";
+
   return (
     <div className="bg-white text-black flex flex-col items-center justify-center w-[600px] h-fit m-auto gap-5 pb-5 rounded-lg">
       <div className="flex flex-col justify-center items-center gap-2 bg-slate-200 w-full h-[100px] p-3 rounded-t-lg">
         <span className="text-xl font-bold">{pokemon.korean_name}</span>
-        <span>{`No. 000${pokemon.id}`}</span>
+        <span>{`No. ${pokemon["id"].toString().padStart(4, "0")}`}</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <Image
@@ -89,7 +91,7 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
         </div>
         <div className="flex flex-col justify-center items-center gap-3">
           <span className="font-bold">기술 :</span>
-          <ul className="max-w-[500px] min-h-[450px] flex flex-wrap justify-center items-center gap-2 ">
+          <ul className="max-w-[500px]  flex flex-wrap justify-center items-center gap-2 ">
             {pokemon.moves.map((move, index) => (
               <li className="w-fit" key={index}>
                 {move.move.korean_name}
