@@ -1,17 +1,16 @@
 "use client";
 import React from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Pokemon } from "@/types/types";
 import axios, { AxiosError } from "axios";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 interface PokemonDetailProps {
   id: string;
 }
 
 const PokemonDetail = ({ id }: PokemonDetailProps) => {
-  const router = useRouter();
-
   const {
     data: pokemon,
     isPending,
@@ -21,7 +20,6 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
     queryKey: ["pokemons", id],
     queryFn: async () => {
       const { data } = await axios.get(`/api/pokemons/${id}`);
-      // console.log("data => ", data);
       return data;
     },
     enabled: !!id,
@@ -98,12 +96,11 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
           </ul>
         </div>
       </div>
-      <button
-        onClick={() => router.back()}
-        className="bg-blue-500 min-w-[60px] px-4 py-2 text-center text-white h-full rounded-md"
-      >
-        뒤로 가기
-      </button>
+      <Link href="/">
+        <button className="bg-blue-500 min-w-[60px] px-4 py-2 text-center text-white h-full rounded-md">
+          뒤로 가기
+        </button>
+      </Link>
     </div>
   );
 };

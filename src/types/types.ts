@@ -1,9 +1,3 @@
-export type DetailPageProps = {
-  params: {
-    id: string;
-  };
-};
-
 export type Pokemon = {
   id: number;
   name: string;

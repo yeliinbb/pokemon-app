@@ -5,12 +5,9 @@ import axios from "axios";
 import Image from "next/image";
 import { Pokemon } from "@/types/types";
 import { AxiosError } from "axios";
-// import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const PokemonList = () => {
-  // const router = useRouter();
-
   const {
     data: pokemons,
     isPending,
@@ -24,10 +21,6 @@ const PokemonList = () => {
       return data;
     },
   });
-  // console.log("pokemons => ", pokemons);
-  // if (isSuccess) {
-  //   const {name } = pokemons;
-  // }
 
   if (isPending) {
     return (

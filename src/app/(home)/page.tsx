@@ -1,4 +1,4 @@
-import PokemonList from "@/components/PokemonList";
+import PokemonList from "@/app/(pokemons)/_components/PokemonList";
 import React from "react";
 
 const HomePage = () => {
