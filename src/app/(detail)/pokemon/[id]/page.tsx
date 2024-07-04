@@ -10,10 +10,11 @@ interface DetailPageProps {
   };
 }
 
-export function generateMetadata({ params: { id } }: DetailPageProps) {
+export async function generateMetadata({ params: { id } }: DetailPageProps) {
+  const pokemon: Pokemon = await fetchPokemon(id);
   return {
-    title: `Detail 페이지 : ${id}`,
-    description: `Detail 페이지 : ${id}`,
+    title: pokemon.korean_name,
+    description: `${pokemon.korean_name} : ${id}`,
   };
 }
 

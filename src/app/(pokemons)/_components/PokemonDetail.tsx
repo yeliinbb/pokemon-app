@@ -66,7 +66,7 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
           {pokemon.types.map((type, index) => (
             <div
               key={index}
-              className="bg-[#FF7F50] min-w-[20px] text-center text-white p-1 rounded h-full inline-block content-center "
+              className="bg-[#FF7F50] min-w-[20px] text-center text-white p-1 rounded h-full inline-block content-center place-items-center"
             >
               {type.type.korean_name}
             </div>

@@ -6,7 +6,10 @@ import Providers from "./_providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Pokemon app",
+  title: {
+    template: "%s | Pokemon app",
+    default: "Pokemon app",
+  },
   description: "Let's go Pokemon!!!",
 };
 
