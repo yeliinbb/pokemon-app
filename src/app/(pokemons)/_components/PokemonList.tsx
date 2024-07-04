@@ -24,31 +24,30 @@ const PokemonList = () => {
     queryFn: async ({ pageParam }) => {
       console.log("pageParam", pageParam);
       const response = await axios.get("/api/pokemons", {
-        params: { _page: pageParam, _limit: ITEMS_PER_PAGE },
+        params: { page: pageParam, limit: ITEMS_PER_PAGE },
       });
-      console.log("API response", response.data);
+      // console.log("API response", response);
+      // 여기서 리턴되는 데이터 값은 getNextPageParam의 인자 lastPage에 들어감.
       return {
         pokemons: response.data,
         totalPages: response.data.totalPages,
+        hasNextPage: response.data.hasNextPage,
+        currentPage: pageParam,
       };
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
-      const nextPage = lastPageParam + 1;
-      // console.log("nextPage", nextPage);
-      // console.log("lastPage.totalPages", lastPage.totalPages);
-      return nextPage <= lastPage.totalPages ? nextPage : undefined;
+      console.log("lastPage", lastPage); // 가장 최근에 불렀던 데이터
+      // console.log("lastPageParam", lastPageParam); // 가장 최근 페이지
+      // console.log("allPages", allPages); // 불러온 데이터 전체
+      return lastPage.hasNextPage ? lastPageParam + 1 : undefined;
     },
     select: ({ pages }) => {
       // console.log("pages", pages);
-      const finalData = pages
-        .map((pokemonsPerPage) => pokemonsPerPage.pokemons.data)
-        .flat(Infinity);
-      // console.log("finalData", finalData);
-      return finalData;
+      return pages.flatMap((page) => page.pokemons.data);
     },
   });
 
-  // console.log("pokemons", pokemons);
+  console.log("pokemons", pokemons);
 
   if (isPending) {
     return (
