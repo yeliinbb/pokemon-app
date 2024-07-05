@@ -51,7 +51,7 @@ const PokemonList = () => {
           limit: ITEMS_PER_PAGE,
         },
       })
-      console.log("response", response)
+      // console.log("response", response)
       const datas = response.data.data
       const newDatas: PokemonWithLike[] = datas.map((item: PokemonWithLike) => {
         return item ? { ...item, liked: false } : undefined
@@ -133,8 +133,11 @@ const PokemonList = () => {
       <ul className="height-[100%] grid min-h-[870px] w-[100%] auto-rows-[200px] grid-cols-item-cards gap-4">
         {isSuccess &&
           data.pokemons?.map((pokemon, index) => (
-            <li className="flex h-[200px] flex-col items-center justify-center rounded-lg border-[1px] border-solid border-whitesmoke hover:shadow-custom">
-              <Link href={`/pokemon/${pokemon.id}`} key={index}>
+            <li
+              key={index}
+              className="flex h-[200px] flex-col items-center justify-center rounded-lg border-[1px] border-solid border-whitesmoke hover:shadow-custom"
+            >
+              <Link href={`/pokemon/${pokemon.id}`}>
                 <Image
                   src={pokemon.sprites.front_default}
                   alt={pokemon.name}
