@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Pokemon } from "@/types/types"
+import { PokemonWithLike } from "@/types/types"
 import { fetchPokemon } from "@/lib/fetchPokemon"
 import PokemonDetail from "@/app/(pokemons)/_components/PokemonDetail"
 
@@ -11,7 +11,7 @@ interface DetailPageProps {
 }
 
 export async function generateMetadata({ params: { id } }: DetailPageProps) {
-  const pokemon: Pokemon = await fetchPokemon(id)
+  const pokemon: PokemonWithLike = await fetchPokemon(id)
   return {
     title: pokemon.korean_name,
     description: `${pokemon.korean_name} : ${id}`,
@@ -19,7 +19,7 @@ export async function generateMetadata({ params: { id } }: DetailPageProps) {
 }
 
 const DetailPage = async ({ params: { id } }: DetailPageProps) => {
-  // const pokemon: Pokemon = await fetchPokemon(id);
+  // const pokemon: PokemonWithLike = await fetchPokemon(id)
   // console.log("pokemon => ", pokemon);
 
   return (

@@ -4,6 +4,8 @@ import axios from "axios"
 const TOTAL_POKEMON = 151
 const PAGE_SIZE = 20
 
+const isNotNull = <T>(value: T | null): value is T => value !== null
+
 export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url)
   const page = parseInt(searchParams.get("page") || "1")
@@ -18,7 +20,7 @@ export const GET = async (request: Request) => {
         axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`),
         axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`),
       ])
-    }).filter(Boolean)
+    }).filter(isNotNull)
 
     const allPokemonResponses = await Promise.all(allPokemonPromises)
 
