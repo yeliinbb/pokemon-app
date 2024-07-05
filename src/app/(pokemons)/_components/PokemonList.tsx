@@ -11,9 +11,6 @@ import {
 } from "@tanstack/react-query"
 import axios, { AxiosError } from "axios"
 import { FaHeart, FaRegHeart } from "react-icons/fa"
-import Skeleton from "react-loading-skeleton"
-
-import "react-loading-skeleton/dist/skeleton.css"
 
 import { PokemonWithLike } from "@/types/types"
 
@@ -55,8 +52,10 @@ const PokemonList = () => {
           limit: ITEMS_PER_PAGE,
         },
       })
-      // console.log("response", response)
+      console.log("response", response)
       const datas = response.data.data
+      // 받아온 데이터는 모두가 사용하는 데이터이기 때문에 이렇게 가공을 하지 않는 것이 좋음.
+      // 필요 시 다른 리스트를 만들어서 관리해주는 것이 필요.
       const newDatas: PokemonWithLike[] = datas.map((item: PokemonWithLike) => {
         return item ? { ...item, liked: false } : undefined
       })
@@ -76,9 +75,15 @@ const PokemonList = () => {
     MutationContext // TContext
   > = useMutation({
     mutationFn: async ({ id, currentLiked }: MutationVariables) => {
-      await axios.get(`/api/pokemons/${id}`, {
-        params: { liked: !currentLiked },
-      })
+      // like 기능 구현 시, 해당 데이터만 업데이트해주는 것이기 때문에 put 덮어주기 사용 권장
+      // liked된 데이터를 저장해주는 공간 필요 -> 로컬 스토리지 or supabase 사용해서 저장 기능 구현 시도
+      // 현재 이 로직은 작동하고 있지 않음 -> 따로 변경된 데이터를 저장해주고 있지 않기 때문에
+      // await axios.get(`/api/pokemons/${id}`, {
+      //   params: { liked: !currentLiked },
+      // })
+      // 이런 식으로 쿼리스트링으로 보내는 방법도 있음.
+      // const newLikedState = !currentLiked ? 'true' : 'false';
+      // await axios.get(`/api/pokemons/${id}/liked=${newLikedState}`)
     },
     onMutate: async ({ id }: MutationVariables): Promise<MutationContext> => {
       await queryClient.cancelQueries({ queryKey: ["pokemons", page] })
