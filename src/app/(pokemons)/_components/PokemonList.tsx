@@ -75,12 +75,10 @@ const PokemonList = () => {
     MutationContext // TContext
   > = useMutation({
     mutationFn: async ({ id, currentLiked }: MutationVariables) => {
-      // like 기능 구현 시, 해당 데이터만 업데이트해주는 것이기 때문에 put 덮어주기 사용 권장
+      // like 기능 구현 시, 해당 데이터만 업데이트해주는 것이기 때문에 put(덮어주기) 메서드 사용 권장
       // liked된 데이터를 저장해주는 공간 필요 -> 로컬 스토리지 or supabase 사용해서 저장 기능 구현 시도
       // 현재 이 로직은 작동하고 있지 않음 -> 따로 변경된 데이터를 저장해주고 있지 않기 때문에
-      // await axios.get(`/api/pokemons/${id}`, {
-      //   params: { liked: !currentLiked },
-      // })
+      await axios.patch(`/api/pokemons/${id}`, { liked: !currentLiked })
       // 이런 식으로 쿼리스트링으로 보내는 방법도 있음.
       // const newLikedState = !currentLiked ? 'true' : 'false';
       // await axios.get(`/api/pokemons/${id}/liked=${newLikedState}`)
