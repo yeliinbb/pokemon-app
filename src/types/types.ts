@@ -1,41 +1,15 @@
 export type Pokemon = {
-  id: number;
-  name: string;
-  korean_name: string;
-  height: number;
-  weight: number;
-  sprites: { front_default: string };
-  types: { type: { name: string; korean_name: string } }[];
-  abilities: { ability: { name: string; korean_name: string } }[];
-  moves: { move: { name: string; korean_name: string } }[];
-};
+  id: number
+  name: string
+  korean_name: string
+  height: number
+  weight: number
+  sprites: { front_default: string }
+  types: { type: { name: string; korean_name: string } }[]
+  abilities: { ability: { name: string; korean_name: string } }[]
+  moves: { move: { name: string; korean_name: string } }[]
+}
 
-export type PokemonSpecies = {
-  base_happiness: 50;
-  capture_rate: 45;
-  color: {};
-  egg_groups: [];
-  evolution_chain: {};
-  evolves_from_species: null;
-  flavor_text_entries: [];
-  form_descriptions: [];
-  forms_switchable: false;
-  gender_rate: 1;
-  genera: [];
-  generation: {};
-  growth_rate: {};
-  habitat: {};
-  has_gender_differences: false;
-  hatch_counter: 20;
-  id: 1;
-  is_baby: false;
-  is_legendary: false;
-  is_mythical: false;
-  name: "bulbasaur";
-  names: [];
-  order: 1;
-  pal_park_encounters: [];
-  pokedex_numbers: [];
-  shape: {};
-  varieties: [];
-};
+export type PokemonWithLike = Pokemon & {
+  liked: boolean
+}

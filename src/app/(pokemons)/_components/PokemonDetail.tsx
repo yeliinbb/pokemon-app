@@ -1,13 +1,15 @@
-"use client";
-import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Pokemon } from "@/types/types";
-import axios, { AxiosError } from "axios";
-import Image from "next/image";
-import Link from "next/link";
+"use client"
+
+import React from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { useQuery } from "@tanstack/react-query"
+import axios, { AxiosError } from "axios"
+
+import { PokemonWithLike } from "@/types/types"
 
 interface PokemonDetailProps {
-  id: string;
+  id: string
 }
 
 const PokemonDetail = ({ id }: PokemonDetailProps) => {
@@ -16,38 +18,38 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
     isPending,
     error,
     isSuccess,
-  } = useQuery<Pokemon, AxiosError, Pokemon, [string, string]>({
+  } = useQuery<PokemonWithLike, AxiosError, PokemonWithLike, [string, string]>({
     queryKey: ["pokemons", id],
     queryFn: async () => {
-      const { data } = await axios.get(`/api/pokemons/${id}`);
-      return data;
+      const { data } = await axios.get(`/api/pokemons/${id}`)
+      return data
     },
     enabled: !!id,
-  });
+  })
 
   // console.log("pokemon => ", pokemon);
 
   if (isPending) {
     return (
-      <div className="text-lg text-center font-medium ">로딩중입니다...</div>
-    );
+      <div className="text-center text-lg font-medium">로딩중입니다...</div>
+    )
   }
 
   if (error) {
     return (
-      <div className="text-lg text-center font-medium">
+      <div className="text-center text-lg font-medium">
         에러가 발생했습니다: {error.message}
       </div>
-    );
+    )
   }
 
   if (!isSuccess || !pokemon) {
-    return null;
+    return null
   }
 
   return (
-    <div className="bg-white text-black flex flex-col items-center justify-center w-[600px] h-fit m-auto gap-5 pb-5 rounded-lg">
-      <div className="flex flex-col justify-center items-center gap-2 bg-slate-200 w-full h-[100px] p-3 rounded-t-lg">
+    <div className="m-auto flex h-fit w-[600px] flex-col items-center justify-center gap-5 rounded-lg bg-white pb-5 text-black">
+      <div className="flex h-[100px] w-full flex-col items-center justify-center gap-2 rounded-t-lg bg-slate-200 p-3">
         <span className="text-xl font-bold">{pokemon.korean_name}</span>
         <span>{`No. ${pokemon["id"].toString().padStart(4, "0")}`}</span>
       </div>
@@ -61,33 +63,33 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
         />
         <span className="text-lg">{`이름 : ${pokemon.korean_name}`}</span>
         <span>{`키 : ${pokemon.height}m 무게 : ${pokemon.weight}kg`}</span>
-        <div className="flex justify-center items-center gap-2">
+        <div className="flex items-center justify-center gap-2">
           <span className="font-bold">타입 :</span>
           {pokemon.types.map((type, index) => (
             <div
               key={index}
-              className="bg-[#FF7F50] min-w-[20px] text-center text-white p-1 rounded h-full inline-block content-center place-items-center"
+              className="inline-block h-full min-w-[20px] place-items-center content-center rounded bg-[#FF7F50] p-1 text-center text-white"
             >
               {type.type.korean_name}
             </div>
           ))}
         </div>
-        <div className="flex justify-center items-center gap-2">
+        <div className="flex items-center justify-center gap-2">
           <span className="font-bold">특성 :</span>
-          <div className="flex justify-center items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             {pokemon.abilities.map((ability, index) => (
               <div
                 key={index}
-                className="bg-[#00BA55] min-w-[20px] text-center text-white p-1 rounded h-full inline-block content-center"
+                className="inline-block h-full min-w-[20px] content-center rounded bg-[#00BA55] p-1 text-center text-white"
               >
                 {ability.ability.korean_name}
               </div>
             ))}
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center gap-3">
+        <div className="flex flex-col items-center justify-center gap-3">
           <span className="font-bold">기술 :</span>
-          <ul className="max-w-[500px]  flex flex-wrap justify-center items-center gap-2 ">
+          <ul className="flex max-w-[500px] flex-wrap items-center justify-center gap-2">
             {pokemon.moves.map((move, index) => (
               <li className="w-fit" key={index}>
                 {move.move.korean_name}
@@ -97,12 +99,12 @@ const PokemonDetail = ({ id }: PokemonDetailProps) => {
         </div>
       </div>
       <Link href="/">
-        <button className="bg-blue-500 min-w-[60px] px-4 py-2 text-center text-white h-full rounded-md">
+        <button className="h-full min-w-[60px] rounded-md bg-blue-500 px-4 py-2 text-center text-white">
           뒤로 가기
         </button>
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default PokemonDetail;
+export default PokemonDetail
